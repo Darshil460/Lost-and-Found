@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lost & Found VIT</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         LANDING PAGE HEADER
+         ========================= -->
+
+    <header>
+
+        <div class="title">
+
+            <h1>
+                LOST & FOUND
+            </h1>
+
+            <h2>
+                VIT VELLORE
+            </h2>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         LANDING PAGE CONTENT
+         ========================= -->
+
+    <main class="home">
+
+        <section class="hero">
+
+            <h1>
+                What would you like to do?
+            </h1>
+
+
+            <p>
+                Find your lost belongings or help someone recover theirs.
+            </p>
+
+
+            <div class="home-buttons">
+
+
+                <!-- LOOKER -->
+
+                <a
+                    href="#"
+                    class="main-button"
+                >
+                    LOOK FOR YOUR ITEM
+                </a>
+
+
+                <!-- FINDER -->
+
+                <a
+                    href="{{ url_for('finder') }}"
+                    class="secondary-button"
+                >
+                    POST FOUND ITEM
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,693 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f7fb;
+    color: #14213d;
+}
+
+header {
+    height: 100px;
+    background-color: white;
+    border-bottom: 1px solid #e1e6ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 40px;
+}
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 32px;
+    letter-spacing: 4px;
+    font-weight: 700;
+}
+
+.title h2 {
+    margin-top: 5px;
+    font-size: 14px;
+    letter-spacing: 5px;
+    font-weight: 400;
+    color: #718096;
+}
+
+
+/* ========================================
+   FINDER NAVIGATION
+   ======================================== */
+
+.finder-home,
+.finder-claims {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.finder-home {
+    left: 40px;
+}
+
+.finder-claims {
+    right: 40px;
+}
+
+.finder-home a,
+.finder-claims a {
+    display: inline-block;
+    padding: 12px 22px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #14213d;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.finder-home a:hover,
+.finder-claims a:hover {
+    background-color: #14213d;
+    color: white;
+    border-color: #14213d;
+}
+
+
+/* ========================================
+   LANDING PAGE
+   ======================================== */
+
+.home {
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.hero {
+    text-align: center;
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 19px;
+    color: #718096;
+    margin-bottom: 40px;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.main-button,
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.main-button {
+    background-color: #14213d;
+    color: white;
+}
+
+.main-button:hover {
+    background-color: #24385f;
+}
+
+.secondary-button {
+    background-color: white;
+    color: #14213d;
+    border: 1px solid #cbd5e1;
+}
+
+.secondary-button:hover {
+    background-color: #edf2f7;
+}
+
+
+/* ========================================
+   FINDER LOGIN PAGE
+   ======================================== */
+
+.finder-login {
+    min-height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 470px;
+    background-color: white;
+    padding: 45px 45px 40px;
+    border-radius: 16px;
+    border: 1px solid #e6ebf2;
+    box-shadow: 0 10px 30px rgba(20, 33, 61, 0.08);
+    text-align: center;
+}
+
+.login-card h1 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.login-card > p {
+    color: #718096;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+.form-group {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #14213d;
+}
+
+
+/* ========================================
+   TEXT INPUT
+   ======================================== */
+
+.form-group input[type="text"] {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: white;
+    color: #334155;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.form-group input[type="text"]::placeholder {
+    color: #94a3b8;
+}
+
+.form-group input[type="text"]:hover {
+    border-color: #94a3b8;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #315a9b;
+    box-shadow: 0 0 0 3px rgba(49, 90, 155, 0.12);
+}
+
+
+/* ========================================
+   LOGIN BUTTON
+   ======================================== */
+
+.login-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background-color: #14213d;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #24385f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(20, 33, 61, 0.18);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+
+/* ========================================
+   BACK HOME
+   ======================================== */
+
+.back-home {
+    display: inline-block;
+    margin-top: 25px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.back-home:hover {
+    color: #14213d;
+}
+
+
+/* ========================================
+   FINDER DASHBOARD / FORM
+   ======================================== */
+
+.finder-main {
+    min-height: calc(100vh - 100px);
+    padding: 45px 20px 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.finder-intro {
+    width: 100%;
+    max-width: 825px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 16px;
+    color: #64748b;
+}
+
+.finder-form {
+    width: 100%;
+    max-width: 825px;
+    background-color: white;
+    padding: 40px 50px 45px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(20, 33, 61, 0.08);
+    border: 1px solid #e6ebf2;
+}
+
+.form-group select {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: white;
+    color: #334155;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.form-group select:hover {
+    border-color: #94a3b8;
+}
+
+.form-group select:focus {
+    border-color: #315a9b;
+    box-shadow: 0 0 0 3px rgba(49, 90, 155, 0.12);
+}
+
+
+/* ========================================
+   DESCRIPTION
+   ======================================== */
+
+.form-group textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: white;
+    color: #334155;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.form-group textarea::placeholder {
+    color: #94a3b8;
+}
+
+.form-group textarea:focus {
+    border-color: #315a9b;
+    box-shadow: 0 0 0 3px rgba(49, 90, 155, 0.12);
+}
+
+
+/* ========================================
+   IMAGE UPLOAD
+   ======================================== */
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 14px;
+    border: 1px dashed #b8c4d4;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+    border-color: #315a9b;
+    background-color: #f1f5f9;
+}
+
+
+/* ========================================
+   POST BUTTON
+   ======================================== */
+
+.post-button {
+    display: block;
+    width: 280px;
+    margin: 10px auto 0;
+    padding: 15px;
+    border: none;
+    border-radius: 9px;
+    background-color: #14213d;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.post-button:hover {
+    background-color: #24385f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(20, 33, 61, 0.18);
+}
+
+.post-button:active {
+    transform: translateY(0);
+}
+
+
+/* ========================================
+   FLASH MESSAGES
+   ======================================== */
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.message.success {
+    background-color: #e8f7ee;
+    color: #176b3a;
+}
+
+.message.error {
+    background-color: #fdecec;
+    color: #a51d2d;
+}
+
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        height: 130px;
+        padding: 20px;
+    }
+
+    .title h1 {
+        font-size: 24px;
+    }
+
+    .title h2 {
+        font-size: 11px;
+    }
+
+    .finder-home {
+        left: 15px;
+    }
+
+    .finder-claims {
+        right: 15px;
+    }
+
+    .finder-home a,
+    .finder-claims a {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .finder-login {
+        padding: 30px 15px;
+    }
+
+    .login-card {
+        padding: 35px 22px;
+    }
+
+    .finder-main {
+        padding: 30px 15px 50px;
+    }
+
+    .finder-form {
+        padding: 30px 22px;
+    }
+
+    .post-button {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+    }
+
+    .main-button,
+    .secondary-button {
+        width: 100%;
+    }
+}
+/* ========================================
+   FINDER DASHBOARD CLEANUP
+   ======================================== */
+
+.finder-main {
+    padding-top: 40px;
+    gap: 35px;
+}
+
+.finder-form {
+    margin-bottom: 0;
+}
+
+.finder-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+
+/* ========================================
+   POSTED ITEMS
+   ======================================== */
+
+.posted-items-section {
+    width: 100%;
+    max-width: 825px;
+}
+
+.posted-items-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.posted-items-heading h2 {
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.posted-items-heading span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   ITEM GRID
+   ======================================== */
+
+.posted-items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+
+/* ========================================
+   ITEM CARD
+   ======================================== */
+
+.item-card {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(20, 33, 61, 0.06);
+    transition: 0.2s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(20, 33, 61, 0.10);
+}
+
+
+/* ========================================
+   ITEM IMAGE
+   ======================================== */
+
+.item-image,
+.item-image-placeholder {
+    width: 100%;
+    height: 190px;
+}
+
+.item-image {
+    display: block;
+    object-fit: cover;
+}
+
+.item-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   ITEM CONTENT
+   ======================================== */
+
+.item-card-content {
+    padding: 20px;
+}
+
+.item-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.item-card-top h3 {
+    font-size: 19px;
+    color: #14213d;
+}
+
+
+/* ========================================
+   STATUS
+   ======================================== */
+
+.status-badge {
+    padding: 5px 9px;
+    border-radius: 20px;
+    background-color: #edf2f7;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+/* ========================================
+   LOCATION
+   ======================================== */
+
+.item-location {
+    margin-bottom: 12px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.item-location strong {
+    color: #334155;
+}
+
+
+/* ========================================
+   DESCRIPTION
+   ======================================== */
+
+.item-description {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   NO ITEMS
+   ======================================== */
+
+.no-items {
+    padding: 40px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.no-items h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.no-items p {
+    color: #718096;
+    font-size: 14px;
+}

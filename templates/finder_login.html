@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Finder Login | Lost & Found</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+         ========================= -->
+
+    <header>
+
+        <div class="title">
+
+            <h1>LOST &amp; FOUND</h1>
+
+            <h2>VIT VELLORE</h2>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         LOGIN PAGE
+         ========================= -->
+
+    <main class="finder-login">
+
+        <div class="login-card">
+
+
+            <h1>Finder Login</h1>
+
+            <p>
+                Enter your registration ID to access
+                your found items.
+            </p>
+
+
+            <!-- =========================
+                 FLASH MESSAGES
+                 ========================= -->
+
+            {% with messages = get_flashed_messages(
+                with_categories=true
+            ) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="message {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- =========================
+                 LOGIN FORM
+                 ========================= -->
+
+            <form
+                action="{{ url_for('finder_login') }}"
+                method="POST"
+            >
+
+                <div class="form-group">
+
+                    <label for="finder_id">
+                        Registration ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="finder_id"
+                        name="finder_id"
+                        placeholder="Enter your registration ID"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    CONTINUE
+                </button>
+
+            </form>
+
+
+            <!-- =========================
+                 BACK HOME
+                 ========================= -->
+
+            <a
+                href="{{ url_for('home') }}"
+                class="back-home"
+            >
+                ← Back to Home
+            </a>
+
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

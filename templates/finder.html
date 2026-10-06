@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Finder Dashboard | Lost & Found</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+         ========================= -->
+
+    <header>
+
+        <div class="finder-home">
+
+            <a href="{{ url_for('home') }}">
+                HOME
+            </a>
+
+        </div>
+
+
+        <div class="title">
+
+            <h1>LOST &amp; FOUND</h1>
+
+            <h2>VIT VELLORE</h2>
+
+        </div>
+
+
+        <div class="finder-claims">
+
+            <a href="#">
+                CLAIMS
+            </a>
+
+            <a href="{{ url_for('finder_logout') }}">
+                LOGOUT
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN DASHBOARD
+         ========================= -->
+
+    <main class="finder-main">
+
+
+
+        <!-- =========================
+             FLASH MESSAGES
+             ========================= -->
+
+        {% with messages = get_flashed_messages(
+            with_categories=true
+        ) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =========================
+             POST ITEM FORM
+             ========================= -->
+
+        <section class="finder-form">
+
+            <h2>POST AN ITEM YOU FOUND</h2>
+
+
+            <form
+                action="{{ url_for('post_item') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label for="location_type">
+                        Location
+                    </label>
+
+                    <select
+                        id="location_type"
+                        name="location_type"
+                        required
+                    >
+
+                        <option value="">
+                            Select a location
+                        </option>
+
+                        {% for location_type in locations %}
+
+                            <option value="{{ location_type }}">
+                                {{ location_type }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SPECIFIC LOCATION -->
+
+                <div
+                    class="form-group"
+                    id="specific-location-group"
+                    style="display: none;"
+                >
+
+                    <label for="location">
+                        Specific Location
+                    </label>
+
+                    <select
+                        id="location"
+                        name="location"
+                    >
+
+                        <option value="">
+                            Select a specific location
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ITEM -->
+
+                <div class="form-group">
+
+                    <label for="item">
+                        Item
+                    </label>
+
+                    <select
+                        id="item"
+                        name="item"
+                        required
+                    >
+
+                        <option value="">
+                            Select an item
+                        </option>
+
+                        {% for item in items %}
+
+                            <option value="{{ item }}">
+                                {{ item }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Describe the item. Include identifying details if possible."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- PICTURE -->
+
+                <div class="form-group">
+
+                    <label for="picture">
+                        Picture
+                    </label>
+
+                    <input
+                        type="file"
+                        id="picture"
+                        name="picture"
+                        accept=".png,.jpg,.jpeg,.webp"
+                    >
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="post-button"
+                >
+                    POST FOUND ITEM
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             YOUR POSTED ITEMS
+             ========================= -->
+
+        <section class="posted-items-section">
+
+            <div class="posted-items-heading">
+
+                <h2>
+                    YOUR POSTED ITEMS
+                </h2>
+
+                <span>
+                    {{ posted_items|length }}
+                    item{% if posted_items|length != 1 %}s{% endif %}
+                </span>
+
+            </div>
+
+
+            {% if posted_items %}
+
+                <div class="posted-items-grid">
+
+                    {% for item in posted_items %}
+
+                        <article class="item-card">
+
+
+                            <!-- IMAGE -->
+
+                            {% if item["picture"] %}
+
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='uploads/' + item['picture']
+                                    ) }}"
+                                    alt="{{ item['item'] }}"
+                                    class="item-image"
+                                >
+
+                            {% else %}
+
+                                <div class="item-image-placeholder">
+                                    No picture
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- ITEM INFORMATION -->
+
+                            <div class="item-card-content">
+
+                                <div class="item-card-top">
+
+                                    <h3>
+                                        {{ item["item"] }}
+                                    </h3>
+
+                                    <span class="status-badge">
+                                        {{ item["status"] }}
+                                    </span>
+
+                                </div>
+
+
+                                <p class="item-location">
+
+                                    <strong>
+                                        Location:
+                                    </strong>
+
+                                    {{ item["location_type"] }}
+
+                                    —
+                                    
+                                    {{ item["location"] }}
+
+                                </p>
+
+
+                                <p class="item-description">
+
+                                    {{ item["description"] }}
+
+                                </p>
+
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="no-items">
+
+                    <h3>
+                        No items posted yet
+                    </h3>
+
+                    <p>
+                        Found something on campus?
+                        Use the form above to post it.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         LOCATION JAVASCRIPT
+         ========================= -->
+
+    <script>
+
+        const locationOptions = {{ locations | tojson }};
+
+        const locationTypeSelect =
+            document.getElementById("location_type");
+
+        const specificLocationSelect =
+            document.getElementById("location");
+
+        const specificLocationGroup =
+            document.getElementById(
+                "specific-location-group"
+            );
+
+
+        locationTypeSelect.addEventListener(
+            "change",
+            function () {
+
+                const selectedLocation =
+                    this.value;
+
+
+                // Clear old options
+
+                specificLocationSelect.innerHTML = "";
+
+
+                // Default option
+
+                const defaultOption =
+                    document.createElement("option");
+
+                defaultOption.value = "";
+
+                defaultOption.textContent =
+                    "Select a specific location";
+
+                specificLocationSelect.appendChild(
+                    defaultOption
+                );
+
+
+                // No location selected
+
+                if (!selectedLocation) {
+
+                    specificLocationGroup.style.display =
+                        "none";
+
+                    specificLocationSelect.required =
+                        false;
+
+                    return;
+                }
+
+
+                const locations =
+                    locationOptions[selectedLocation];
+
+
+                // If there is only one possible
+                // location, use it automatically.
+
+                if (locations.length === 1) {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        locations[0];
+
+                    option.textContent =
+                        locations[0];
+
+                    option.selected =
+                        true;
+
+                    specificLocationSelect.appendChild(
+                        option
+                    );
+
+                    specificLocationGroup.style.display =
+                        "none";
+
+                    specificLocationSelect.required =
+                        true;
+
+                    return;
+                }
+
+
+                // Multiple possible locations
+
+                locations.forEach(
+                    function (location) {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value =
+                            location;
+
+                        option.textContent =
+                            location;
+
+                        specificLocationSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+                specificLocationGroup.style.display =
+                    "block";
+
+                specificLocationSelect.required =
+                    true;
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

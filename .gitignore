@@ -1,0 +1,9 @@
+# SQLite database
+lostandfound.db
+
+# Python generated files
+__pycache__/
+*.pyc
+
+# Uploaded user images
+static/uploads/

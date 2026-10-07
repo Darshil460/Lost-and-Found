@@ -45,7 +45,7 @@
 
         <div class="finder-claims">
 
-            <a href="#">
+            <a href="{{ url_for('finder_claims') }}">
                 CLAIMS
             </a>
 
@@ -63,7 +63,6 @@
          ========================= -->
 
     <main class="finder-main">
-
 
 
         <!-- =========================
@@ -105,7 +104,9 @@
             >
 
 
-                <!-- LOCATION -->
+                <!-- =========================
+                     LOCATION
+                     ========================= -->
 
                 <div class="form-group">
 
@@ -136,7 +137,9 @@
                 </div>
 
 
-                <!-- SPECIFIC LOCATION -->
+                <!-- =========================
+                     SPECIFIC LOCATION
+                     ========================= -->
 
                 <div
                     class="form-group"
@@ -162,7 +165,9 @@
                 </div>
 
 
-                <!-- ITEM -->
+                <!-- =========================
+                     ITEM
+                     ========================= -->
 
                 <div class="form-group">
 
@@ -193,7 +198,9 @@
                 </div>
 
 
-                <!-- DESCRIPTION -->
+                <!-- =========================
+                     DESCRIPTION
+                     ========================= -->
 
                 <div class="form-group">
 
@@ -211,7 +218,9 @@
                 </div>
 
 
-                <!-- PICTURE -->
+                <!-- =========================
+                     PICTURE
+                     ========================= -->
 
                 <div class="form-group">
 
@@ -229,7 +238,117 @@
                 </div>
 
 
-                <!-- SUBMIT -->
+                <!-- =========================
+                     VERIFICATION QUESTIONS
+                     ========================= -->
+
+                <div class="verification-section">
+
+                    <h3>
+                        Verification Questions
+                    </h3>
+
+                    <p class="verification-info">
+                        Add up to 3 questions that someone must
+                        answer correctly before claiming this item.
+                    </p>
+
+
+                    <!-- QUESTION 1 -->
+
+                    <div class="verification-question">
+
+                        <label for="question_1">
+                            Question 1
+                        </label>
+
+                        <input
+                            type="text"
+                            id="question_1"
+                            name="question_1"
+                            placeholder="e.g. What is the registration number?"
+                        >
+
+
+                        <label for="answer_1">
+                            Answer 1
+                        </label>
+
+                        <input
+                            type="text"
+                            id="answer_1"
+                            name="answer_1"
+                            placeholder="Enter the correct answer"
+                        >
+
+                    </div>
+
+
+                    <!-- QUESTION 2 -->
+
+                    <div class="verification-question">
+
+                        <label for="question_2">
+                            Question 2
+                        </label>
+
+                        <input
+                            type="text"
+                            id="question_2"
+                            name="question_2"
+                            placeholder="e.g. What colour is the item?"
+                        >
+
+
+                        <label for="answer_2">
+                            Answer 2
+                        </label>
+
+                        <input
+                            type="text"
+                            id="answer_2"
+                            name="answer_2"
+                            placeholder="Enter the correct answer"
+                        >
+
+                    </div>
+
+
+                    <!-- QUESTION 3 -->
+
+                    <div class="verification-question">
+
+                        <label for="question_3">
+                            Question 3
+                        </label>
+
+                        <input
+                            type="text"
+                            id="question_3"
+                            name="question_3"
+                            placeholder="e.g. What brand is the item?"
+                        >
+
+
+                        <label for="answer_3">
+                            Answer 3
+                        </label>
+
+                        <input
+                            type="text"
+                            id="answer_3"
+                            name="answer_3"
+                            placeholder="Enter the correct answer"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     SUBMIT
+                     ========================= -->
 
                 <button
                     type="submit"
@@ -272,7 +391,10 @@
 
                         <article class="item-card">
 
-
+                            <a class="secondary-button edit-item-link"
+                                href="{{ url_for('edit_item', item_id=item['id']) }}">
+                                EDIT ITEM
+                            </a>
                             <!-- IMAGE -->
 
                             {% if item["picture"] %}
@@ -321,7 +443,7 @@
                                     {{ item["location_type"] }}
 
                                     —
-                                    
+
                                     {{ item["location"] }}
 
                                 </p>

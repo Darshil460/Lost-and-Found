@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looker Login | Lost &amp; Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="finder-login">
+        <section class="login-card">
+            <h1>Looker Login</h1>
+            <p>Enter your registration ID to search found items.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('looker') }}" method="POST">
+                <div class="form-group">
+                    <label for="looker-id">Registration ID</label>
+                    <input
+                        type="text"
+                        id="looker-id"
+                        name="looker_id"
+                        placeholder="Enter your registration ID"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="login-button">CONTINUE</button>
+            </form>
+
+            <a class="back-home" href="{{ url_for('home') }}">← Back to Home</a>
+        </section>
+    </main>
+
+</body>
+</html>

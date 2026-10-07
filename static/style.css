@@ -442,7 +442,6 @@ header {
    ======================================== */
 
 @media (max-width: 700px) {
-
     header {
         height: 130px;
         padding: 20px;
@@ -503,6 +502,8 @@ header {
         width: 100%;
     }
 }
+
+
 /* ========================================
    FINDER DASHBOARD CLEANUP
    ======================================== */
@@ -690,4 +691,1275 @@ header {
 .no-items p {
     color: #718096;
     font-size: 14px;
+}
+
+
+/* ========================================
+   VERIFICATION QUESTIONS
+   ======================================== */
+
+.verification-section {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid #d8dee6;
+    border-radius: 10px;
+    background-color: #f8fafc;
+}
+
+.verification-section h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+.verification-info {
+    margin: 0 0 0.75rem;
+    color: #5f6b76;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.verification-question {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+    padding: 1rem;
+    border: 1px solid #e1e6ec;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.verification-question label {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.verification-question input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.7rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+.verification-question input::placeholder {
+    color: #7b8794;
+    opacity: 1;
+}
+
+.verification-question input:focus {
+    border-color: #718aa5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(113 138 165 / 15%);
+}
+
+
+/* ========================================
+   LOOKER PAGE
+   ======================================== */
+
+.looker-page {
+    min-height: 100vh;
+    margin: 0;
+    background: #f5f7fa;
+    color: #14213d;
+}
+
+.looker-site-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem max(1.25rem, calc((100% - 1000px) / 2));
+    background: #fff;
+    border-bottom: 1px solid #dce3eb;
+}
+
+.looker-brand {
+    text-align: center;
+}
+
+.looker-brand h1,
+.looker-brand p {
+    margin: 0;
+}
+
+.looker-brand h1 {
+    color: #14213d;
+    font-size: 1.5rem;
+}
+
+.looker-brand p {
+    margin-top: 0.2rem;
+    color: #718096;
+}
+
+.looker-home-link,
+.looker-logout-link {
+    color: #14213d;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.looker-logout-link {
+    justify-self: end;
+}
+
+.looker-main {
+    width: min(900px, calc(100% - 2rem));
+    margin: 2rem auto;
+}
+
+.looker-login-panel,
+.looker-listings {
+    padding: 1.5rem;
+    border: 1px solid #dce3eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(25 45 75 / 6%);
+}
+
+.looker-login-panel {
+    max-width: 500px;
+    margin: 3rem auto;
+}
+
+.looker-login-panel h2,
+.looker-listings-heading h2 {
+    margin: 0 0 0.4rem;
+    color: #14213d;
+}
+
+.looker-login-panel p,
+.looker-listings-heading p {
+    color: #718096;
+}
+
+.looker-login-panel form {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 1.25rem;
+}
+
+.looker-login-panel label,
+.looker-search-label,
+.looker-answer-group label {
+    color: #14213d;
+    font-weight: 600;
+}
+
+.looker-login-panel input,
+.looker-search,
+.looker-answer-group input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #fff;
+    color: #334155;
+    font: inherit;
+}
+
+.looker-login-panel input::placeholder,
+.looker-search::placeholder,
+.looker-answer-group input::placeholder {
+    color: #94a3b8;
+}
+
+.looker-login-panel input:focus,
+.looker-search:focus,
+.looker-answer-group input:focus {
+    border-color: #315a9b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(49 90 155 / 12%);
+}
+
+.looker-primary-button,
+.looker-secondary-button,
+.looker-claim-button {
+    padding: 0.7rem 1rem;
+    border: 0;
+    border-radius: 7px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.looker-primary-button,
+.looker-claim-button {
+    background: #14213d;
+    color: #fff;
+}
+
+.looker-primary-button:hover,
+.looker-claim-button:hover {
+    background: #24385f;
+}
+
+.looker-primary-button:disabled,
+.looker-claim-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.looker-secondary-button {
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #14213d;
+}
+
+.looker-listings-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.looker-listings-heading p {
+    margin: 0;
+}
+
+.looker-listings-heading > span {
+    color: #718096;
+    white-space: nowrap;
+}
+
+.looker-search-label {
+    display: block;
+    margin-bottom: 0.45rem;
+}
+
+.looker-search {
+    margin-bottom: 1rem;
+}
+
+.looker-item-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.looker-item-card {
+    display: grid;
+    grid-template-columns: auto 90px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e0e6ed;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.looker-item-number {
+    color: #718096;
+    font-weight: 700;
+}
+
+.looker-item-image,
+.looker-image-placeholder {
+    width: 90px;
+    height: 75px;
+    border-radius: 7px;
+    object-fit: cover;
+}
+
+.looker-image-placeholder {
+    display: grid;
+    place-items: center;
+    background: #eef2f6;
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+.looker-item-details h3 {
+    margin: 0 0 0.35rem;
+    color: #14213d;
+}
+
+.looker-item-details p {
+    margin: 0.25rem 0;
+    color: #718096;
+}
+
+.looker-item-details strong {
+    color: #334155;
+}
+
+.looker-empty-state {
+    padding: 1rem;
+    color: #718096;
+    text-align: center;
+}
+
+.looker-modal[hidden] {
+    display: none;
+}
+
+.looker-modal {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
+    padding: 1rem;
+    background: rgb(15 23 42 / 55%);
+}
+
+.looker-modal-panel {
+    position: relative;
+    width: min(560px, 100%);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #fff;
+    color: #14213d;
+    box-shadow: 0 16px 50px rgb(0 0 0 / 20%);
+}
+
+.looker-modal-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.8rem;
+    border: 0;
+    background: transparent;
+    color: #718096;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.looker-modal-panel h2 {
+    margin: 0 2rem 1rem 0;
+    color: #14213d;
+}
+
+.looker-modal-panel h3 {
+    margin-bottom: 0.35rem;
+    color: #14213d;
+}
+
+.looker-modal-image {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    margin: 0.5rem 0 1rem;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #f5f7fa;
+}
+
+.looker-question-prompt {
+    margin: 0 0 0.5rem;
+    color: #14213d;
+    font-weight: 600;
+}
+
+.looker-answer-group {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 1rem;
+}
+
+.looker-no-questions {
+    padding: 0.75rem;
+    border-radius: 7px;
+    background: #f5f7fa;
+    color: #718096;
+}
+
+.looker-feedback {
+    min-height: 1.4rem;
+    margin: 0.75rem 0;
+}
+
+.looker-feedback.error {
+    color: #a51d2d;
+}
+
+.looker-feedback.success {
+    color: #176b3a;
+}
+
+.looker-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.looker-modal-open {
+    overflow: hidden;
+}
+
+
+/* ========================================
+   LOOKER BUTTONS
+   ======================================== */
+
+.looker-page .looker-home-link,
+.looker-page .looker-logout-link,
+.looker-page .looker-primary-button,
+.looker-page .looker-secondary-button,
+.looker-page .looker-claim-button,
+.looker-page .login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #14213d;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.looker-page .looker-home-link:hover,
+.looker-page .looker-logout-link:hover,
+.looker-page .looker-primary-button:not(:disabled):hover,
+.looker-page .looker-secondary-button:not(:disabled):hover,
+.looker-page .looker-claim-button:not(:disabled):hover,
+.looker-page .login-button:not(:disabled):hover {
+    border-color: #14213d;
+    background-color: #14213d;
+    color: #fff;
+    box-shadow: none;
+    transform: none;
+}
+
+.looker-page .looker-home-link:active,
+.looker-page .looker-logout-link:active,
+.looker-page button:not(:disabled):active {
+    transform: translateY(1px);
+}
+
+.looker-page button:focus-visible,
+.looker-page a.looker-home-link:focus-visible,
+.looker-page a.looker-logout-link:focus-visible {
+    outline: 3px solid rgb(49 90 155 / 25%);
+    outline-offset: 2px;
+}
+
+.looker-page button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.looker-page .looker-modal-close {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #14213d;
+    transition: 0.2s ease;
+}
+
+.looker-page .looker-modal-close:hover {
+    border-color: #14213d;
+    background-color: #14213d;
+    color: #fff;
+}
+
+
+@media (max-width: 640px) {
+    .looker-site-header {
+        grid-template-columns: 1fr auto;
+    }
+
+    .looker-brand {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .looker-home-link,
+    .looker-logout-link {
+        grid-row: 2;
+    }
+
+    .looker-item-card {
+        grid-template-columns: auto 72px minmax(0, 1fr);
+    }
+
+    .looker-item-image,
+    .looker-image-placeholder {
+        width: 72px;
+        height: 64px;
+    }
+
+    .looker-claim-button {
+        grid-column: 2 / -1;
+        justify-self: stretch;
+    }
+
+    .looker-listings-heading {
+        align-items: flex-start;
+    }
+
+    .looker-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .looker-modal-actions button {
+        width: 100%;
+    }
+
+    .looker-page .looker-home-link,
+    .looker-page .looker-logout-link,
+    .looker-page .looker-primary-button,
+    .looker-page .looker-secondary-button,
+    .looker-page .looker-claim-button,
+    .looker-page .login-button {
+        width: 100%;
+    }
+}
+
+
+/* ========================================
+   HOME BUTTON
+   ======================================== */
+
+.home-action-button {
+    min-width: 260px;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+button.secondary-button {
+    appearance: none;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+.looker-page .looker-home-link {
+    justify-self: start;
+    width: fit-content;
+}
+
+@media (max-width: 640px) {
+    .looker-page .looker-home-link,
+    .looker-page .looker-logout-link {
+        width: fit-content;
+    }
+}
+.looker-site-header .looker-brand h2,
+.looker-site-header .looker-brand p {
+    margin: 5px 0 0;
+    color: #718096;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    line-height: normal;
+    white-space: nowrap;
+}
+.claim-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.claim-actions form {
+    flex: 1;
+}
+
+.claim-actions button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.approve-claim-button {
+    background-color: #14213d;
+    color: white;
+}
+
+.approve-claim-button:hover {
+    background-color: #24385f;
+}
+
+.reject-claim-button {
+    background-color: white;
+    color: #14213d;
+}
+
+.reject-claim-button:hover {
+    background-color: #edf2f7;
+}
+
+@media (max-width: 700px) {
+    .posted-items-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.edit-item-link {
+    margin-top: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+}
+
+.edit-item-current-image {
+    display: block;
+    width: 180px;
+    max-height: 160px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.remove-picture-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.remove-picture-option input {
+    width: auto;
+}
+
+.edit-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.edit-item-actions .post-button {
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .edit-item-actions {
+        flex-direction: column;
+    }
+
+    .edit-item-actions .post-button,
+    .edit-item-actions .secondary-button {
+        width: 100%;
+    }
+}
+/* ========================================
+   CLAIM CHAT
+   ======================================== */
+
+.claim-chat-page {
+    min-height: 100vh;
+    margin: 0;
+    background: #f5f7fa;
+    color: #14213d;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.claim-chat-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem max(1.25rem, calc((100% - 1000px) / 2));
+    background: #fff;
+    border-bottom: 1px solid #dce3eb;
+}
+
+.claim-chat-brand {
+    text-align: center;
+}
+
+.claim-chat-brand h1,
+.claim-chat-brand p {
+    margin: 0;
+}
+
+.claim-chat-brand h1 {
+    color: #14213d;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+}
+
+.claim-chat-brand p {
+    margin-top: 0.25rem;
+    color: #718096;
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+}
+
+.claim-chat-nav-button,
+.claim-chat-form-bottom button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #14213d;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.claim-chat-nav-button:last-child {
+    justify-self: end;
+}
+
+.claim-chat-nav-button:hover,
+.claim-chat-form-bottom button:hover:not(:disabled) {
+    border-color: #14213d;
+    background: #14213d;
+    color: #fff;
+}
+
+.claim-chat-main {
+    width: min(800px, calc(100% - 2rem));
+    margin: 2rem auto;
+}
+
+.claim-chat-panel {
+    padding: 1.5rem;
+    border: 1px solid #dce3eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(25 45 75 / 6%);
+}
+
+.claim-chat-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.claim-chat-heading h2 {
+    margin: 0 0 0.5rem;
+}
+
+.claim-chat-heading p {
+    margin: 0.3rem 0;
+    color: #64748b;
+}
+
+.claim-chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: min(52vh, 480px);
+    min-height: 260px;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+.claim-chat-message {
+    max-width: 82%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px 10px 10px 3px;
+    background: #f8fafc;
+    overflow-wrap: anywhere;
+}
+
+.claim-chat-message.own-message {
+    align-self: flex-end;
+    border-color: #cbd9ec;
+    border-radius: 10px 10px 3px 10px;
+    background: #edf4fc;
+}
+
+.claim-chat-message-meta {
+    margin: 0 0 0.35rem;
+    color: #718096;
+    font-size: 0.75rem;
+}
+
+.claim-chat-message-body {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.claim-chat-empty {
+    margin: auto;
+    color: #718096;
+    text-align: center;
+}
+
+.claim-chat-feedback {
+    min-height: 1.3rem;
+    margin: 0.25rem 0 0.75rem;
+    color: #a51d2d;
+}
+
+.claim-chat-form {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.claim-chat-form label {
+    font-weight: 700;
+}
+
+.claim-chat-form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: #334155;
+    font: inherit;
+}
+
+.claim-chat-form textarea:focus {
+    border-color: #315a9b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(49 90 155 / 12%);
+}
+
+.claim-chat-form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.claim-chat-form-bottom small {
+    color: #718096;
+}
+
+.claim-chat-form-bottom button {
+    background: #14213d;
+    color: #fff;
+}
+
+.claim-chat-form-bottom button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.claim-chat-button,
+.looker-my-claims-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #14213d;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.claim-chat-button:hover,
+.looker-my-claims-link:hover {
+    border-color: #14213d;
+    background: #14213d;
+    color: #fff;
+}
+
+.looker-claim-list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.looker-claim-card {
+    padding: 1rem;
+    border: 1px solid #e0e6ed;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.looker-claim-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.looker-claim-card-heading h3 {
+    margin: 0;
+}
+
+.looker-claim-card p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.looker-claim-card .looker-primary-button {
+    display: inline-flex;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .claim-chat-header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .claim-chat-brand {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .claim-chat-header .claim-chat-nav-button {
+        grid-row: 2;
+    }
+
+    .claim-chat-message {
+        max-width: 94%;
+    }
+
+    .claim-chat-form-bottom {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .claim-chat-form-bottom button {
+        width: 100%;
+    }
+}
+/* ========================================
+   CLAIM CHAT AND CLAIM LINKS
+   ======================================== */
+
+.claim-chat-page {
+    min-height: 100vh;
+    margin: 0;
+    background: #f5f7fa;
+    color: #14213d;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.claim-chat-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem max(1.25rem, calc((100% - 1000px) / 2));
+    background: #fff;
+    border-bottom: 1px solid #dce3eb;
+}
+
+.claim-chat-brand {
+    text-align: center;
+}
+
+.claim-chat-brand h1,
+.claim-chat-brand p {
+    margin: 0;
+}
+
+.claim-chat-brand h1 {
+    color: #14213d;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+}
+
+.claim-chat-brand p {
+    margin-top: 0.25rem;
+    color: #718096;
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+}
+
+.claim-chat-nav-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #14213d;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.claim-chat-header .claim-chat-nav-button:last-child {
+    justify-self: end;
+}
+
+.claim-chat-nav-button:hover {
+    border-color: #14213d;
+    background: #14213d;
+    color: #fff;
+}
+
+.claim-chat-main {
+    width: min(800px, calc(100% - 2rem));
+    margin: 2rem auto;
+}
+
+.claim-chat-panel {
+    padding: 1.5rem;
+    border: 1px solid #dce3eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(25 45 75 / 6%);
+}
+
+.claim-chat-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.claim-chat-heading h2 {
+    margin: 0 0 0.5rem;
+    color: #14213d;
+}
+
+.claim-chat-heading p {
+    margin: 0.3rem 0;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.claim-chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: min(52vh, 480px);
+    min-height: 260px;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+.claim-chat-message {
+    max-width: 82%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px 10px 10px 3px;
+    background: #f8fafc;
+    overflow-wrap: anywhere;
+}
+
+.claim-chat-message.own-message {
+    align-self: flex-end;
+    border-color: #cbd9ec;
+    border-radius: 10px 10px 3px 10px;
+    background: #edf4fc;
+}
+
+.claim-chat-message-meta {
+    margin: 0 0 0.35rem;
+    color: #718096;
+    font-size: 0.75rem;
+}
+
+.claim-chat-message-body {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.claim-chat-empty {
+    margin: auto;
+    color: #718096;
+    text-align: center;
+}
+
+.claim-chat-feedback {
+    min-height: 1.3rem;
+    margin: 0.25rem 0 0.75rem;
+    color: #a51d2d;
+}
+
+.claim-chat-form {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.claim-chat-form label {
+    color: #14213d;
+    font-weight: 700;
+}
+
+.claim-chat-form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: vertical;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #334155;
+    font: inherit;
+}
+
+.claim-chat-form textarea:focus {
+    border-color: #315a9b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(49 90 155 / 12%);
+}
+
+.claim-chat-form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.claim-chat-form-bottom small {
+    color: #718096;
+}
+
+.claim-chat-form-bottom button {
+    padding: 12px 22px;
+    border: 1px solid #14213d;
+    border-radius: 10px;
+    background: #14213d;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.claim-chat-form-bottom button:hover:not(:disabled) {
+    background: #24385f;
+}
+
+.claim-chat-form-bottom button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+
+/* Finder and Looker links to claim conversations */
+
+.claim-chat-button,
+.looker-my-claims-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.75rem;
+    padding: 12px 18px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #14213d;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.claim-chat-button:hover,
+.looker-my-claims-link:hover {
+    border-color: #14213d;
+    background: #14213d;
+    color: #fff;
+}
+
+
+/* Looker's claim list */
+
+.looker-claim-list {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.looker-claim-card {
+    padding: 1rem;
+    border: 1px solid #e0e6ed;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.looker-claim-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.looker-claim-card-heading h3 {
+    margin: 0;
+    color: #14213d;
+}
+
+.looker-claim-card p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.looker-claim-card .looker-primary-button {
+    display: inline-flex;
+    text-decoration: none;
+}
+
+
+@media (max-width: 640px) {
+    .claim-chat-header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .claim-chat-brand {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .claim-chat-header .claim-chat-nav-button {
+        grid-row: 2;
+    }
+
+    .claim-chat-main {
+        margin: 1rem auto;
+    }
+
+    .claim-chat-panel {
+        padding: 1rem;
+    }
+
+    .claim-chat-message {
+        max-width: 94%;
+    }
+
+    .claim-chat-form-bottom {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .claim-chat-form-bottom button {
+        width: 100%;
+    }
 }

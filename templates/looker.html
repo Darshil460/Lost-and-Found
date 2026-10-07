@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looker | Lost &amp; Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="looker-page">
+
+    <header class="looker-site-header">
+        <a class="looker-home-link" href="{{ url_for('home') }}">HOME</a>
+
+        <div class="title looker-brand">
+            <h1>LOST &amp; FOUND</h1>
+            <p>VIT VELLORE</p>
+        </div>
+
+        {% if looker_id %}
+            <a class="looker-logout-link" href="{{ url_for('looker_logout') }}">
+                LOGOUT
+            </a>
+        {% else %}
+            <span></span>
+        {% endif %}
+    </header>
+
+    <main class="looker-main">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if not looker_id %}
+            <section class="looker-login-panel">
+                <h2>Look for a lost item</h2>
+                <p>Enter your registration ID to browse found items and submit a claim.</p>
+
+                <form action="{{ url_for('looker') }}" method="POST">
+                    <label for="looker-id">Registration ID</label>
+                    <input
+                        id="looker-id"
+                        name="looker_id"
+                        type="text"
+                        autocomplete="username"
+                        required
+                    >
+                    <button class="looker-primary-button" type="submit">
+                        Continue
+                    </button>
+                </form>
+            </section>
+
+        {% else %}
+            <section class="looker-listings">
+                <div class="looker-listings-heading">
+                    <div>
+                        <h2>Found items</h2>
+                        <p>Signed in as {{ looker_id }}</p>
+
+                        <a
+                            class="looker-my-claims-link"
+                            href="{{ url_for('looker_claims') }}"
+                        >
+                            View my claims
+                        </a>
+                    </div>
+                    <span id="looker-item-count">{{ items|length }} items</span>
+                </div>
+
+                <label class="looker-search-label" for="looker-search">
+                    Search found items
+                </label>
+                <input
+                    id="looker-search"
+                    class="looker-search"
+                    type="search"
+                    placeholder="Search by item, location, or description"
+                    autocomplete="off"
+                >
+
+                <div id="looker-item-list" class="looker-item-list">
+                    {% for item in items %}
+                        <article
+                            class="looker-item-card"
+                            data-search="{{ (item['item'] ~ ' ' ~ item['location_type'] ~ ' ' ~ item['location'] ~ ' ' ~ item['description'])|lower }}"
+                        >
+                            <span class="looker-item-number">{{ loop.index }}.</span>
+
+                            {% if item["picture"] %}
+                                <img
+                                    class="looker-item-image"
+                                    src="{{ url_for('static', filename='uploads/' ~ item['picture']) }}"
+                                    alt="Photo of {{ item['item'] }}"
+                                >
+                            {% else %}
+                                <div class="looker-image-placeholder">No photo</div>
+                            {% endif %}
+
+                            <div class="looker-item-details">
+                                <h3>{{ item["item"] }}</h3>
+                                <p>
+                                    <strong>Location:</strong>
+                                    {{ item["location_type"] }} — {{ item["location"] }}
+                                </p>
+                                <p>{{ item["description"] }}</p>
+                            </div>
+
+                            <button
+                                class="looker-claim-button"
+                                type="button"
+                                data-item-id="{{ item['id'] }}"
+                                data-item-name="{{ item['item'] }}"
+                                data-location="{{ item['location_type'] }} — {{ item['location'] }}"
+                                data-description="{{ item['description'] }}"
+                                data-image="{% if item['picture'] %}{{ url_for('static', filename='uploads/' ~ item['picture']) }}{% endif %}"
+                            >
+                                Claim
+                            </button>
+                        </article>
+                    {% else %}
+                        <p id="looker-no-items" class="looker-empty-state">
+                            There are no unclaimed items right now.
+                        </p>
+                    {% endfor %}
+                </div>
+
+                <p id="looker-no-search-results" class="looker-empty-state" hidden>
+                    No items match your search.
+                </p>
+            </section>
+
+            <div id="looker-claim-modal" class="looker-modal" hidden>
+                <section
+                    class="looker-modal-panel"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="looker-modal-title"
+                >
+                    <button
+                        id="looker-modal-close"
+                        class="looker-modal-close"
+                        type="button"
+                        aria-label="Close"
+                    >&times;</button>
+
+                    <h2 id="looker-modal-title">Claim item</h2>
+
+                    <img id="looker-modal-image" class="looker-modal-image" alt="" hidden>
+                    <h3 id="looker-modal-item-name"></h3>
+                    <p id="looker-modal-location"></p>
+                    <p id="looker-modal-description"></p>
+
+                    <form id="looker-claim-form">
+                        <div id="looker-verification-fields"></div>
+
+                        <p id="looker-claim-message" class="looker-feedback" role="status"></p>
+
+                        <div class="looker-modal-actions">
+                            <button
+                                id="looker-cancel-claim"
+                                type="button"
+                                class="looker-secondary-button"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="looker-submit-claim"
+                                type="submit"
+                                class="looker-primary-button"
+                                disabled
+                            >
+                                Submit claim
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        {% endif %}
+    </main>
+
+    {% if looker_id %}
+    <script>
+        const searchInput = document.getElementById("looker-search");
+        const itemCards = [...document.querySelectorAll(".looker-item-card")];
+        const itemCount = document.getElementById("looker-item-count");
+        const noSearchResults = document.getElementById("looker-no-search-results");
+
+        const modal = document.getElementById("looker-claim-modal");
+        const modalClose = document.getElementById("looker-modal-close");
+        const modalCancel = document.getElementById("looker-cancel-claim");
+        const modalImage = document.getElementById("looker-modal-image");
+        const modalName = document.getElementById("looker-modal-item-name");
+        const modalLocation = document.getElementById("looker-modal-location");
+        const modalDescription = document.getElementById("looker-modal-description");
+        const verificationFields = document.getElementById("looker-verification-fields");
+        const claimForm = document.getElementById("looker-claim-form");
+        const claimMessage = document.getElementById("looker-claim-message");
+        const submitClaimButton = document.getElementById("looker-submit-claim");
+
+        let currentItemId = null;
+        let currentClaimButton = null;
+        let lastFocusedElement = null;
+
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            itemCards.forEach((card) => {
+                const matches = card.dataset.search.includes(query);
+                card.hidden = !matches;
+                if (matches) visibleCount += 1;
+            });
+
+            itemCount.textContent =
+                `${visibleCount} item${visibleCount === 1 ? "" : "s"}`;
+            noSearchResults.hidden =
+                visibleCount > 0 || itemCards.length === 0;
+        });
+
+        function showMessage(message, type) {
+            claimMessage.textContent = message;
+            claimMessage.className = `looker-feedback ${type || ""}`;
+        }
+
+        function closeModal() {
+            modal.hidden = true;
+            document.body.classList.remove("looker-modal-open");
+            currentItemId = null;
+            currentClaimButton = null;
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        function addVerificationFields(questions) {
+            verificationFields.replaceChildren();
+
+            if (questions.length === 0) {
+                const note = document.createElement("p");
+                note.className = "looker-no-questions";
+                note.textContent =
+                    "This item has no verification questions. You can submit your claim.";
+                verificationFields.append(note);
+                return;
+            }
+
+            questions.forEach((question, index) => {
+                const number = index + 1;
+                const group = document.createElement("div");
+                group.className = "looker-answer-group";
+
+                const prompt = document.createElement("p");
+                prompt.className = "looker-question-prompt";
+                prompt.textContent = question;
+
+                const label = document.createElement("label");
+                label.htmlFor = `looker-answer-${number}`;
+                label.textContent = `Answer ${number}`;
+
+                const input = document.createElement("input");
+                input.id = `looker-answer-${number}`;
+                input.type = "text";
+                input.required = true;
+                input.maxLength = 200;
+                input.autocomplete = "off";
+                input.dataset.answer = "true";
+
+                group.append(prompt, label, input);
+                verificationFields.append(group);
+            });
+        }
+
+        async function openClaimModal(button) {
+            currentItemId = button.dataset.itemId;
+            currentClaimButton = button;
+            lastFocusedElement = button;
+
+            modalName.textContent = button.dataset.itemName;
+            modalLocation.textContent = `Location: ${button.dataset.location}`;
+            modalDescription.textContent = button.dataset.description;
+
+            if (button.dataset.image) {
+                modalImage.src = button.dataset.image;
+                modalImage.alt = `Photo of ${button.dataset.itemName}`;
+                modalImage.hidden = false;
+            } else {
+                modalImage.removeAttribute("src");
+                modalImage.hidden = true;
+            }
+
+            verificationFields.replaceChildren();
+            showMessage("", "");
+            submitClaimButton.disabled = true;
+            submitClaimButton.textContent = "Loading questions...";
+            modal.hidden = false;
+            document.body.classList.add("looker-modal-open");
+
+            try {
+                const response = await fetch(
+                    `/looker/item/${encodeURIComponent(currentItemId)}/questions`
+                );
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        result.message || "Could not load verification questions."
+                    );
+                }
+
+                addVerificationFields(result.questions);
+                submitClaimButton.disabled = false;
+                submitClaimButton.textContent = "Submit claim";
+            } catch (error) {
+                showMessage(error.message, "error");
+                submitClaimButton.textContent = "Submit claim";
+            }
+        }
+
+        document.querySelectorAll(".looker-claim-button").forEach((button) => {
+            button.addEventListener("click", () => openClaimModal(button));
+        });
+
+        modalClose.addEventListener("click", closeModal);
+        modalCancel.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeModal();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && !modal.hidden) closeModal();
+        });
+
+        claimForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!currentItemId) return;
+
+            const answers = [
+                ...verificationFields.querySelectorAll("[data-answer]")
+            ].map((input) => input.value);
+
+            submitClaimButton.disabled = true;
+            showMessage("", "");
+
+            try {
+                const response = await fetch(
+                    `/looker/claim/${encodeURIComponent(currentItemId)}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ answers })
+                    }
+                );
+                const result = await response.json();
+
+                if (!response.ok) {
+                    showMessage(
+                        result.message || "Could not submit your claim.",
+                        "error"
+                    );
+
+                    if (response.status === 422) {
+                        verificationFields
+                            .querySelectorAll("[data-answer]")
+                            .forEach((input) => {
+                                input.value = "";
+                            });
+                        verificationFields
+                            .querySelector("[data-answer]")
+                            ?.focus();
+                    }
+
+                    submitClaimButton.disabled = false;
+                    return;
+                }
+
+                showMessage(result.message, "success");
+                submitClaimButton.textContent = "Claim submitted";
+
+                if (currentClaimButton) {
+                    currentClaimButton.textContent = "Claim pending";
+                    currentClaimButton.disabled = true;
+                }
+            } catch (error) {
+                showMessage(
+                    "Could not reach the server. Please try again.",
+                    "error"
+                );
+                submitClaimButton.disabled = false;
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html> 

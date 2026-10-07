@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Chat | Lost &amp; Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="claim-chat-page">
+
+    <header class="claim-chat-header">
+        <a class="claim-chat-nav-button" href="{{ back_url }}">BACK</a>
+
+        <div class="claim-chat-brand">
+            <h1>LOST &amp; FOUND</h1>
+            <p>VIT VELLORE</p>
+        </div>
+
+        <a class="claim-chat-nav-button" href="{{ logout_url }}">LOGOUT</a>
+    </header>
+
+    <main class="claim-chat-main">
+        <section class="claim-chat-panel">
+            <div class="claim-chat-heading">
+                <div>
+                    <h2>Claim conversation</h2>
+                    <p>
+                        {{ claim["item"] }} —
+                        {{ claim["location_type"] }}: {{ claim["location"] }}
+                    </p>
+                    <p>
+                        Chatting with {{ other_role }}:
+                        <strong>{{ other_user_id or "Unknown" }}</strong>
+                    </p>
+                </div>
+
+                <span id="claim-chat-status" class="status-badge">
+                    {{ claim["claim_status"] }}
+                </span>
+            </div>
+
+            <div
+                id="claim-chat-messages"
+                class="claim-chat-messages"
+                aria-live="polite"
+                aria-label="Messages"
+            ></div>
+
+            <p id="claim-chat-feedback" class="claim-chat-feedback" role="status"></p>
+
+            <form id="claim-chat-form" class="claim-chat-form">
+                <label for="claim-chat-input">Message</label>
+                <textarea
+                    id="claim-chat-input"
+                    name="message"
+                    maxlength="1000"
+                    rows="3"
+                    placeholder="Ask a question about this claim..."
+                    required
+                ></textarea>
+
+                <div class="claim-chat-form-bottom">
+                    <small>Maximum 1000 characters</small>
+                    <button id="claim-chat-send" class="looker-primary-button" type="submit">
+                        Send message
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const messagesUrl = {{ messages_url|tojson }};
+        const currentRole = {{ role|tojson }};
+        const currentId = {{ current_id|tojson }};
+
+        const messagesBox = document.getElementById("claim-chat-messages");
+        const chatForm = document.getElementById("claim-chat-form");
+        const chatInput = document.getElementById("claim-chat-input");
+        const sendButton = document.getElementById("claim-chat-send");
+        const feedback = document.getElementById("claim-chat-feedback");
+        const statusBadge = document.getElementById("claim-chat-status");
+
+        function setReadOnly(status) {
+            statusBadge.textContent = status;
+            const locked = status !== "pending";
+
+            chatInput.disabled = locked;
+            sendButton.disabled = locked;
+
+            if (locked) {
+                feedback.textContent =
+                    "This claim has been reviewed. The conversation is read-only.";
+            }
+        }
+
+        function displayMessages(messages) {
+            messagesBox.replaceChildren();
+
+            if (messages.length === 0) {
+                const empty = document.createElement("p");
+                empty.className = "claim-chat-empty";
+                empty.textContent = "No messages yet. Start the conversation.";
+                messagesBox.append(empty);
+                return;
+            }
+
+            messages.forEach((message) => {
+                const isOwnMessage =
+                    message.sender_role === currentRole &&
+                    message.sender_id === currentId;
+
+                const bubble = document.createElement("article");
+                bubble.className = isOwnMessage
+                    ? "claim-chat-message own-message"
+                    : "claim-chat-message";
+
+                const meta = document.createElement("p");
+                meta.className = "claim-chat-message-meta";
+                meta.textContent =
+                    `${message.sender_role === "finder" ? "Finder" : "Looker"} ` +
+                    `(${message.sender_id}) · ${message.created_at}`;
+
+                const body = document.createElement("p");
+                body.className = "claim-chat-message-body";
+                body.textContent = message.body;
+
+                bubble.append(meta, body);
+                messagesBox.append(bubble);
+            });
+
+            messagesBox.scrollTop = messagesBox.scrollHeight;
+        }
+
+        async function loadMessages() {
+            try {
+                const response = await fetch(messagesUrl);
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || "Could not load messages.");
+                }
+
+                displayMessages(result.messages);
+                setReadOnly(result.claim_status);
+            } catch (error) {
+                feedback.textContent = error.message;
+            }
+        }
+
+        chatForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            sendButton.disabled = true;
+            feedback.textContent = "";
+
+            try {
+                const response = await fetch(messagesUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || "Could not send the message.");
+                }
+
+                chatInput.value = "";
+                await loadMessages();
+                chatInput.focus();
+            } catch (error) {
+                feedback.textContent = error.message;
+            } finally {
+                if (statusBadge.textContent === "pending") {
+                    sendButton.disabled = false;
+                }
+            }
+        });
+
+        loadMessages();
+        window.setInterval(loadMessages, 3000);
+    </script>
+</body>
+</html>

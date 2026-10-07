@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finder Claims | Lost &amp; Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="finder-home">
+            <a href="{{ url_for('finder_dashboard') }}">ITEMS</a>
+        </div>
+
+        <div class="title">
+            <h1>LOST &amp; FOUND</h1>
+            <h2>VIT VELLORE</h2>
+        </div>
+
+        <div class="finder-claims">
+            <a href="{{ url_for('finder_logout') }}">LOGOUT</a>
+        </div>
+    </header>
+
+    <main class="finder-main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="posted-items-section">
+            <div class="posted-items-heading">
+                <h2>CLAIMS ON YOUR ITEMS</h2>
+                <span>{{ claims|length }} claim{% if claims|length != 1 %}s{% endif %}</span>
+            </div>
+
+            {% if claims %}
+                <div class="posted-items-grid">
+                    {% for claim in claims %}
+                        <article class="item-card">
+                            {% if claim["picture"] %}
+                                <img
+                                    class="item-image"
+                                    src="{{ url_for('static', filename='uploads/' + claim['picture']) }}"
+                                    alt="{{ claim['item'] }}"
+                                >
+                            {% else %}
+                                <div class="item-image-placeholder">No picture</div>
+                            {% endif %}
+
+                            <div class="item-card-content">
+                                <div class="item-card-top">
+                                    <h3>{{ claim["item"] }}</h3>
+                                    <span class="status-badge">
+                                        {{ claim["claim_status"] }}
+                                    </span>
+                                </div>
+
+                                <p class="item-location">
+                                    <strong>Claimed by:</strong>
+                                    {{ claim["looker_id"] or "Unknown" }}
+                                </p>
+
+                                <p class="item-location">
+                                    <strong>Location:</strong>
+                                    {{ claim["location_type"] }} — {{ claim["location"] }}
+                                </p>
+
+                                <p class="item-description">
+                                    {{ claim["description"] }}
+                                </p>
+
+                                <a
+                                    class="claim-chat-button"
+                                    href="{{ url_for(
+                                        'finder_claim_chat',
+                                        claim_id=claim['claim_id']
+                                    ) }}"
+                                >
+                                    {% if claim["claim_status"] == "pending" %}
+                                        CHAT WITH LOOKER
+                                    {% else %}
+                                        VIEW CONVERSATION
+                                    {% endif %}
+                                </a>
+
+                                {% if claim["claim_status"] == "pending" %}
+                                    <div class="claim-actions">
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'update_finder_claim',
+                                                claim_id=claim['claim_id'],
+                                                decision='approve'
+                                            ) }}"
+                                        >
+                                            <button
+                                                class="approve-claim-button"
+                                                type="submit"
+                                            >
+                                                APPROVE
+                                            </button>
+                                        </form>
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'update_finder_claim',
+                                                claim_id=claim['claim_id'],
+                                                decision='reject'
+                                            ) }}"
+                                        >
+                                            <button
+                                                class="reject-claim-button"
+                                                type="submit"
+                                            >
+                                                REJECT
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-items">
+                    <h3>No claims yet</h3>
+                    <p>Claims on your posted items will appear here.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+</body>
+</html>

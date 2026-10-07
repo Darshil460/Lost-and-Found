@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Claims | Lost &amp; Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="looker-page">
+
+    <header class="looker-site-header">
+        <a class="looker-home-link" href="{{ url_for('looker') }}">ITEMS</a>
+
+        <div class="title looker-brand">
+            <h1>LOST &amp; FOUND</h1>
+            <p>VIT VELLORE</p>
+        </div>
+
+        <a class="looker-logout-link" href="{{ url_for('looker_logout') }}">
+            LOGOUT
+        </a>
+    </header>
+
+    <main class="looker-main">
+        <section class="looker-listings">
+            <div class="looker-listings-heading">
+                <div>
+                    <h2>My claims</h2>
+                    <p>Signed in as {{ looker_id }}</p>
+                </div>
+                <span>{{ claims|length }} claim{% if claims|length != 1 %}s{% endif %}</span>
+            </div>
+
+            {% if claims %}
+                <div class="looker-claim-list">
+                    {% for claim in claims %}
+                        <article class="looker-claim-card">
+                            <div class="looker-claim-card-heading">
+                                <h3>{{ claim["item"] }}</h3>
+                                <span class="status-badge">
+                                    {{ claim["claim_status"] }}
+                                </span>
+                            </div>
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ claim["location_type"] }} — {{ claim["location"] }}
+                            </p>
+
+                            <p>{{ claim["description"] }}</p>
+
+                            <p>
+                                <strong>Finder:</strong>
+                                {{ claim["finder_id"] or "Unknown" }}
+                            </p>
+
+                            <a
+                                class="looker-primary-button"
+                                href="{{ url_for(
+                                    'looker_claim_chat',
+                                    claim_id=claim['claim_id']
+                                ) }}"
+                            >
+                                {% if claim["claim_status"] == "pending" %}
+                                    CHAT WITH FINDER
+                                {% else %}
+                                    VIEW CONVERSATION
+                                {% endif %}
+                            </a>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="looker-empty-state">
+                    You haven’t submitted any claims yet.
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+</body>
+</html>

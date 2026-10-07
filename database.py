@@ -4,15 +4,14 @@ import sqlite3
 DATABASE = "lostandfound.db"
 
 
+
+
 def get_connection():
-    connection = sqlite3.connect(DATABASE)
+    connection = sqlite3.connect(DATABASE, timeout=30)
     connection.row_factory = sqlite3.Row
-
-    # Makes SQLite enforce foreign-key relationships
     connection.execute("PRAGMA foreign_keys = ON")
-
+    connection.execute("PRAGMA busy_timeout = 30000")
     return connection
-
 
 def init_db():
 
@@ -56,8 +55,6 @@ def init_db():
     # MIGRATE OLD ITEMS TABLE
     # ========================================
 
-    # Check whether finder_id already exists
-
     cursor.execute("""
         PRAGMA table_info(items)
     """)
@@ -67,8 +64,6 @@ def init_db():
         for column in cursor.fetchall()
     ]
 
-
-    # If this is our old database, add finder_id
 
     if "finder_id" not in item_columns:
 
@@ -112,8 +107,6 @@ def init_db():
     ]
 
 
-    # If this is our old database, add looker_id
-
     if "looker_id" not in claim_columns:
 
         cursor.execute("""
@@ -122,5 +115,47 @@ def init_db():
         """)
 
 
+    # ========================================
+    # VERIFICATION QUESTIONS TABLE
+    # ========================================
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS verification_questions (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            item_id INTEGER NOT NULL,
+
+            question TEXT NOT NULL,
+
+            answer TEXT NOT NULL,
+
+            FOREIGN KEY (item_id)
+                REFERENCES items(id)
+                ON DELETE CASCADE
+        )
+        """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS claim_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            claim_id INTEGER NOT NULL,
+            sender_id TEXT NOT NULL,
+            sender_role TEXT NOT NULL
+                CHECK (sender_role IN ('finder', 'looker')),
+            body TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+            FOREIGN KEY (claim_id)
+                REFERENCES claims(id)
+                ON DELETE CASCADE
+        )
+    """)
+
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_claim_messages_claim_id_id
+        ON claim_messages (claim_id, id)
+    """)
+
     connection.commit()
+
     connection.close()

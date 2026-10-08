@@ -12,9 +12,11 @@ Browser → Flask route → SQLite query or update → Jinja page or JSON respon
 Some interactions use JavaScript calls and JSON responses. 
 
 Database maintenance and ideology :-
+
 There is a common database maintained from where information is appended, edited and deleted as per the user’s actions. The bootstrap ensures the existence of 5 tables: users, items, claims, verification questions, claim messages. 
 
 Libraries used :-
+
 Flask – For routes, sessions, flash messages, templates and JSON responses
 Werkzeug – To maintain the uploaded files. 
 sqlite3 and pathlib (in-built to python) – Database access and file paths 
